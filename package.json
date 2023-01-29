@@ -1,16 +1,17 @@
 {
   "name": "@esign-design-info/fetch",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
   "umd": "./dist/index.umd.js",
   "types": "./dist/types/index.d.ts",
+  "type": "commonjs",
   "scripts": {
     "clean:dist": "rm -rf dist",
     "build:types": "npm run clean:dist && tsc -b ./tsconfig.types.json",
     "build": "npm run build:types && rollup -c --bundleConfigAsCjs",
-    "publish": "npx lint-staged"
+    "pub": "npx lint-staged && node build/release"
   },
   "author": "",
   "license": "ISC",
@@ -18,27 +19,29 @@
     "axios": "^1.2.2"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.20.7",
-    "core-js": "3",
-    "rollup-plugin-polyfill-node": "^0.11.0",
-    "@commitlint/cli": "^17.4.2",
-    "@commitlint/config-conventional": "^17.4.2",
+    "inquirer": "^8.2.0",
     "@babel/core": "^7.20.12",
     "@babel/plugin-transform-runtime": "^7.19.6",
     "@babel/preset-env": "^7.20.2",
+    "@babel/runtime": "^7.20.7",
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "@rollup/plugin-alias": "^4.0.2",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "@types/inquirer": "^9.0.3",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
+    "core-js": "3",
     "eslint": "^8.32.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
     "prettier": "^2.8.3",
     "rollup": "^3.10.0",
+    "rollup-plugin-polyfill-node": "^0.11.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
     "rollup-plugin-uglify": "^6.0.4",
@@ -49,5 +52,6 @@
       "eslint --fix --quiet",
       "prettier -w"
     ]
-  }
+  },
+  "private": false
 }
