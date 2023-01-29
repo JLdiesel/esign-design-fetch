@@ -1,6 +1,6 @@
 {
   "name": "@esign-design-info/fetch",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
@@ -19,7 +19,6 @@
     "axios": "^1.2.2"
   },
   "devDependencies": {
-    "inquirer": "^8.2.0",
     "@babel/core": "^7.20.12",
     "@babel/plugin-transform-runtime": "^7.19.6",
     "@babel/preset-env": "^7.20.2",
@@ -38,6 +37,7 @@
     "core-js": "3",
     "eslint": "^8.32.0",
     "husky": "^8.0.3",
+    "inquirer": "^8.2.0",
     "lint-staged": "^13.1.0",
     "prettier": "^2.8.3",
     "rollup": "^3.10.0",
@@ -53,5 +53,5 @@
       "prettier -w"
     ]
   },
-  "private": false
+  "private": true
 }
