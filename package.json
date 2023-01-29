@@ -1,6 +1,6 @@
 {
   "name": "@esign-design-info/fetch",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
@@ -14,7 +14,7 @@
     "clean:dist": "rm -rf dist",
     "build:types": "npm run clean:dist && tsc -b ./tsconfig.types.json",
     "build": "npm run build:types && rollup -c --bundleConfigAsCjs",
-    "pub": "npx lint-staged && node build/release"
+    "pub": "npx lint-staged && npm run build && node build/release"
   },
   "author": "",
   "license": "ISC",
