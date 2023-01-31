@@ -1,6 +1,6 @@
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HttpStatusCode } from 'axios'
+import type { AxiosInstance, AxiosResponse } from 'axios'
 import axios from 'axios'
-import { configType, downLoadParams, params, RequertInterceptors, methods } from '@/types'
+import { configType, downLoadParams, params, RequertInterceptors } from '@/types'
 
 export class ServiceInsance {
   instance: AxiosInstance
