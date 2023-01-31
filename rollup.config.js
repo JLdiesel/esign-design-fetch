@@ -11,11 +11,10 @@ import { defineConfig } from 'rollup'
 import { uglify } from 'rollup-plugin-uglify'
 // eslint-disable-next-line no-undef
 const env = '' // umd 模式的编译结果文件输出的全局变量名称
-console.log(env)
 const config = defineConfig({
   // 入口文件，src/index.ts
   // eslint-disable-next-line no-undef
-  input: path.resolve(__dirname, 'main.ts'),
+  input: path.resolve(__dirname, 'index.ts'),
 
   // 输出文件
   output: [
@@ -23,26 +22,9 @@ const config = defineConfig({
     {
       // package.json 配置的 main 属性
       file: pkg.main,
-      format: 'cjs',
-      sourcemap: true,
-      globals: ['util', 'stream', 'path', 'http', 'https', 'url', 'fs', 'assert', 'tty', 'os', 'zlib', 'events'],
+      format: 'commonjs',
     },
     // es module
-    {
-      // package.json 配置的 module 属性
-      file: pkg.module,
-      sourcemap: true,
-      format: 'es',
-      globals: ['util', 'stream', 'path', 'http', 'https', 'url', 'fs', 'assert', 'tty', 'os', 'zlib', 'events'],
-    },
-    // umd
-    {
-      // package.json 配置的 umd 属性
-      file: pkg.umd,
-      sourcemap: true,
-      format: 'umd',
-      globals: ['util', 'stream', 'path', 'http', 'https', 'url', 'fs', 'assert', 'tty', 'os', 'zlib', 'events'],
-    },
   ],
   external: ['source-map', '@babel/parser', 'estree-walker'],
   plugins: [

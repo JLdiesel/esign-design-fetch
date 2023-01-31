@@ -17,5 +17,6 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     '@typescript-eslint/no-var-requires': false,
+    '@typescript-eslint/no-explicit-any': false,
   },
 }

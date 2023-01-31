@@ -7,7 +7,7 @@ export interface RequertInterceptors {
 }
 export interface configType extends AxiosRequestConfig {
   interceptors?: RequertInterceptors
-  codesHandler: Record<HttpStatusCode, () => void>
+  codesHandler?: Record<HttpStatusCode, () => void>
 }
 export type methods = 'get' | 'post' | 'delete' | 'put' | 'patch' | 'head'
 
