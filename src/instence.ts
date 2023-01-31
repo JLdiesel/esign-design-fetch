@@ -1,12 +1,12 @@
 import type { AxiosInstance, AxiosResponse } from 'axios'
-import axios from 'axios'
+import axios from 'axios/dist/axios'
 import { configType, downLoadParams, params, RequertInterceptors } from '@/types'
 
 export class ServiceInsance {
   instance: AxiosInstance
   private interceptors?: RequertInterceptors
   constructor(config?: configType) {
-    this.instance = axios.create(config)
+    this.instance = axios.create()
     this.interceptors = config?.interceptors
     this.instance.interceptors.request.use(this.interceptors?.requestInterceptor, this.interceptors?.requestInterceptorCatch)
     this.instance.interceptors.response.use(this.interceptors?.responseInterceptor, this.interceptors?.responseInterceptorCatch)

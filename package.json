@@ -1,11 +1,11 @@
 {
   "name": "@esign-design-info/fetch",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "",
   "main": "./dist/index.js",
   "cjs": "./dist/index.cjs.js",
   "umd": "./dist/index.umd.js",
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/types/instence.d.ts",
   "files": [
     "dist"
   ],

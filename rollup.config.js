@@ -22,7 +22,8 @@ const config = defineConfig({
     {
       // package.json 配置的 main 属性
       file: pkg.main,
-      format: 'commonjs',
+      format: 'cjs',
+      dynamicImportInCjs: false,
     },
     // es module
   ],
