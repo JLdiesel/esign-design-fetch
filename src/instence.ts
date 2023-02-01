@@ -1,31 +1,85 @@
 import type { AxiosInstance, AxiosResponse } from 'axios'
 import axios from 'axios/dist/axios'
-import { configType, downLoadParams, params, RequertInterceptors } from './types'
+import { configType, downLoadParams, params, baseUrl } from './types'
+
 export class ServiceInsance {
+  forWard?: baseUrl
+  assessment?: baseUrl
+  esign?: baseUrl
+  h5?: baseUrl
   instance: AxiosInstance
-  private interceptors?: RequertInterceptors
   constructor(config?: configType) {
     this.instance = axios.create(config)
-    this.interceptors = config?.interceptors
-    this.instance.interceptors.request.use(this.interceptors?.requestInterceptor, this.interceptors?.requestInterceptorCatch)
-    this.instance.interceptors.response.use(this.interceptors?.responseInterceptor, this.interceptors?.responseInterceptorCatch)
-  }
-  requrest<T = any>(config?: configType): Promise<AxiosResponse<T, any>> {
-    return new Promise((resolve, rej) => {
-      if (config.interceptors?.requestInterceptor) {
-        config = config.interceptors.requestInterceptor(config)
+    if (config.baseUrlMap) {
+      for (const key in config.baseUrlMap) {
+        this[key] = {
+          get: this.createBaseFn('get', config.baseUrlMap[key]),
+          post: this.createBaseFn('post', config.baseUrlMap[key]),
+          put: this.createBaseFn('put', config.baseUrlMap[key]),
+          delete: this.createBaseFn('delete', config.baseUrlMap[key]),
+          head: this.createBaseFn('head', config.baseUrlMap[key]),
+          patch: this.createBaseFn('patch', config.baseUrlMap[key]),
+        }
       }
-      this.instance
-        .request<T>(config)
-        .then((res) => {
-          if (config.interceptors?.responseInterceptor) {
-            res = config.interceptors.responseInterceptor(res)
-          }
-          resolve(res)
-        })
-        .catch((err) => {
-          rej(err)
-        })
+    }
+    this.instance.interceptors.request.use(config?.interceptors?.requestInterceptor, config?.interceptors?.requestInterceptorCatch)
+    this.instance.interceptors.response.use(config?.interceptors?.responseInterceptor, config?.interceptors?.responseInterceptorCatch)
+  }
+  private createBaseFn(type, value) {
+    return (url, config: configType) =>
+      this[type](`${value.url}${url}`, {
+        ...config,
+        interceptors: {
+          responseInterceptor: config.interceptors?.responseInterceptor
+            ? (res: AxiosResponse<any, any>) => {
+                if (typeof value.interceptors?.responseInterceptor === 'function') {
+                  res = value.interceptors?.responseInterceptor(res)
+                }
+                return config.interceptors.responseInterceptor(res)
+              }
+            : value.interceptors?.responseInterceptor,
+          requestInterceptor: config.interceptors?.requestInterceptor
+            ? (config: configType) => {
+                if (typeof value.interceptors?.requestInterceptor === 'function') {
+                  config = value.interceptors?.requestInterceptor(config)
+                }
+                return config.interceptors.requestInterceptor(config)
+              }
+            : value.interceptors?.requestInterceptor,
+          responseInterceptorCatch: config.interceptors?.responseInterceptorCatch
+            ? (res: AxiosResponse<any, any>) => {
+                if (typeof value.interceptors?.responseInterceptorCatch === 'function') {
+                  res = value.interceptors?.responseInterceptorCatch(res)
+                }
+                return config.interceptors.responseInterceptorCatch(res)
+              }
+            : value.interceptors?.responseInterceptorCatch,
+        },
+      })
+  }
+  private requrest<T = any>(config?: configType): Promise<AxiosResponse<T, any>> {
+    return new Promise((resolve, rej) => {
+      try {
+        if (config.interceptors?.requestInterceptor) {
+          config = config.interceptors.requestInterceptor(config)
+        }
+        this.instance
+          .request<T>(config)
+          .then((res) => {
+            if (config.interceptors?.responseInterceptor) {
+              res = config.interceptors.responseInterceptor(res)
+            }
+            resolve(res)
+          })
+          .catch((err) => {
+            if (config.interceptors?.responseInterceptorCatch) {
+              err = config.interceptors.responseInterceptorCatch(err)
+            }
+            rej(err)
+          })
+      } catch (error) {
+        rej(error)
+      }
     })
   }
   get<T = any>(url: string, config?: configType) {
