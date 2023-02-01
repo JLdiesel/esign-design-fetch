@@ -2,7 +2,7 @@ import type { AxiosRequestConfig, AxiosResponse, HttpStatusCode } from 'axios'
 export interface RequertInterceptors {
   requestInterceptor?: (config: AxiosRequestConfig) => AxiosRequestConfig
   requestInterceptorCatch?: (error: any) => any
-  responseInterceptor?: (config: AxiosResponse) => AxiosResponse
+  responseInterceptor?: (res: AxiosResponse) => AxiosResponse
   responseInterceptorCatch?: (error: any) => any
 }
 export interface configType extends AxiosRequestConfig {
