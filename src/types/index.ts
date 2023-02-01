@@ -24,7 +24,8 @@ export type BaseUrlMap = {
     interceptors?: RequertInterceptors
   }
 }
-export type baseUrlArr = 'forWard' | 'assessment' | 'esign' | 'h5'
+export type baseUrlArr = 'forWard' | 'assessment' | 'support' | 'h5' | 'accessUrl' | 'inuserUrl'
+
 export interface configType extends AxiosRequestConfig {
   interceptors?: RequertInterceptors
   codesHandler?: Record<HttpStatusCode, () => void>

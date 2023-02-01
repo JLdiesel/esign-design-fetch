@@ -5,8 +5,10 @@ import { configType, downLoadParams, params, baseUrl } from './types'
 export class ServiceInsance {
   forWard?: baseUrl
   assessment?: baseUrl
-  esign?: baseUrl
+  support?: baseUrl
   h5?: baseUrl
+  inuserUrl?: baseUrl
+  accessUrl?: baseUrl
   instance: AxiosInstance
   constructor(config?: configType) {
     this.instance = axios.create(config)
