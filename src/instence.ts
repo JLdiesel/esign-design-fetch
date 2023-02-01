@@ -32,28 +32,28 @@ export class ServiceInsance {
       this[type](`${value.url}${url}`, {
         ...config,
         interceptors: {
-          responseInterceptor: config.interceptors?.responseInterceptor
+          responseInterceptor: config?.interceptors?.responseInterceptor
             ? (res: AxiosResponse<any, any>) => {
                 if (typeof value.interceptors?.responseInterceptor === 'function') {
                   res = value.interceptors?.responseInterceptor(res)
                 }
-                return config.interceptors.responseInterceptor(res)
+                return config?.interceptors?.responseInterceptor(res)
               }
             : value.interceptors?.responseInterceptor,
-          requestInterceptor: config.interceptors?.requestInterceptor
+          requestInterceptor: config?.interceptors?.requestInterceptor
             ? (config: configType) => {
                 if (typeof value.interceptors?.requestInterceptor === 'function') {
                   config = value.interceptors?.requestInterceptor(config)
                 }
-                return config.interceptors.requestInterceptor(config)
+                return config?.interceptors?.requestInterceptor(config)
               }
             : value.interceptors?.requestInterceptor,
-          responseInterceptorCatch: config.interceptors?.responseInterceptorCatch
+          responseInterceptorCatch: config?.interceptors?.responseInterceptorCatch
             ? (res: AxiosResponse<any, any>) => {
                 if (typeof value.interceptors?.responseInterceptorCatch === 'function') {
                   res = value.interceptors?.responseInterceptorCatch(res)
                 }
-                return config.interceptors.responseInterceptorCatch(res)
+                return config?.interceptors.responseInterceptorCatch(res)
               }
             : value.interceptors?.responseInterceptorCatch,
         },
