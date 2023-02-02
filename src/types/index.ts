@@ -14,24 +14,18 @@ export type baseUrl = {
   patch: (url: any, config: configType) => any
 }
 
-export interface ServiceInsanceType {
+export type BaseUrlMap = {
+  [K in baseUrlArr]?: { url: string; interceptors?: RequertInterceptors }
+}
+
+export type baseUrlArr = 'forWard' | 'assessment' | 'support' | 'h5' | 'accessUrl' | 'inuserUrl'
+export type ServiceInsanceType = {
   instance: AxiosInstance
 }
-
-export type BaseUrlMap = {
-  [a: string]: {
-    url: string
-    interceptors?: RequertInterceptors
-  }
-}
-export type baseUrlArr = 'forWard' | 'assessment' | 'support' | 'h5' | 'accessUrl' | 'inuserUrl'
-
 export interface configType extends AxiosRequestConfig {
   interceptors?: RequertInterceptors
   codesHandler?: Record<HttpStatusCode, () => void>
-  baseUrlMap?: {
-    [K in baseUrlArr]?: string
-  }
+  baseUrlMap?: BaseUrlMap
 }
 export type methods = 'get' | 'post' | 'delete' | 'put' | 'patch' | 'head'
 
